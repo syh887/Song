@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song XX - 个人网页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            writing-mode: horizontal-tb;
+            text-orientation: mixed;
+        }
+        
+        :root {
+            --primary-blue: #89B0AE;  /* 主蓝色 */
+            --light-blue: #BEE3DB;    /* 浅蓝色 */
+            --mint-blue: #E0EAE4;     /* 薄荷蓝 */
+            --lavender: #C8B6E2;      /* 薰衣草紫 */
+            --soft-pink: #F8C8DC;     /* 柔和粉色 */
+            --cream: #FFFDD0;         /* 奶油色 */
+            --text-dark: #4A4A4A;     /* 深色文字 */
+            --text-light: #7A7A7A;    /* 浅色文字 */
+            --white: #FFFFFF;         /* 白色 */
+            --silver: #D0D0D0;        /* 银色（星星） */
+            --silver-light: #E8E8E8;  /* 浅银色（星星阴影） */
+            --shadow: rgba(0, 0, 0, 0.1); /* 阴影 */
+            --transition: all 0.3s ease; /* 统一过渡效果 */
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--mint-blue) 50%, var(--primary-blue) 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding-top: 80px;
+            line-height: 1.6;
+            background-attachment: fixed;
+            text-align: left;
+            position: relative; /* 为星星定位提供参考 */
+            overflow-x: hidden;
+        }
+        
+        /* 银色星星样式 */
+        .silver-star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none; /* 不影响其他元素交互 */
+            z-index: 5; /* 位于内容下方 */
+            animation: starTwinkle 1.2s ease-in-out forwards;
+	    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* 星星闪烁动画 */
+        @keyframes starTwinkle {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+                box-shadow: 0 0 8px var(--silver-light);
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+                box-shadow: 0 0 15px var(--silver), 0 0 20px var(--silver-light);
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0;
+                box-shadow: 0 0 5px var(--silver-light);
+            }
+        }
+        
+        /* 英文文本样式 */
+        .english-text {
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        /* 标题英文样式 */
+        .english-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+        
+        /* 顶部导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            height: 80px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            height: 70px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 左侧部分 */
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .back-btn {
+            font-size: 22px;
+            color: var(--primary-blue);
+            cursor: pointer;
+            margin-right: 20px;
+            transition: var(--transition);
+            background: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        
+        .back-btn:hover {
+            transform: translateX(-5px);
+            color: var(--lavender);
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+        
+        .logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        /* 导航菜单 */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-item {
+            margin: 0 8px;
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 10px 16px;
+            transition: var(--transition);
+            border-radius: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .nav-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .nav-link:hover:before {
+            left: 100%;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-blue);
+            font-weight: 600;
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 15px var(--shadow);
+            outline: none;
+        }
+        
+        /* 右侧菜单 */
+        .navbar-right {
+            position: relative;
+        }
+        
+        .menu-toggle {
+            font-size: 22px;
+            color: var(--primary-blue);
+            cursor: pointer;
+            padding: 12px;
+            transition: var(--transition);
+            background: var(--white);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px var(--shadow);
+            border: none;
+        }
+        
+        .menu-toggle:hover {
+            color: var(--lavender);
+            transform: rotate(90deg);
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+        
+        .submenu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            width: 180px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            box-shadow: 0 10px 30px var(--shadow);
+            z-index: 100;
+        }
+        
+        .navbar-right:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+        
+        .submenu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .submenu-item:hover {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--primary-blue);
+            padding-left: 25px;
+        }
+        
+        .submenu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            color: var(--primary-blue);
+        }
+        
+        /* 主要内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10; /* 确保内容在星星上方 */
+        }
+        
+        .header {
+            text-align: center;
+            padding: 80px 30px 60px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            margin: 0 20px 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--mint-blue), var(--lavender));
+        }
+        
+        .header:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .header h1 {
+            font-size: 4.5em;
+            font-weight: 300;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        
+        .header:hover h1 {
+            transform: scale(1.02);
+        }
+        
+        .header h2 {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            font-style: italic;
+            font-weight: 500;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* 装饰元素 */
+        .header-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .header-decoration .line {
+            width: 80px;
+            height: 2px;
+            background: var(--primary-blue);
+            opacity: 0.6;
+        }
+        
+        .header-decoration .icon {
+            margin: 0 15px;
+            color: var(--primary-blue);
+            font-size: 1.5em;
+        }
+        
+        .content {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px 60px;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .profile, .awards, .projects {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile:hover, .awards:hover, .projects:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .profile:before, .awards:before, .projects:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--mint-blue), var(--lavender));
+        }
+        
+        .profile img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            display: block;
+            margin: 0 auto 30px;
+            box-shadow: 0 8px 20px var(--shadow);
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .profile:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-title {
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--mint-blue);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .profile:hover .section-title,
+        .awards:hover .section-title,
+        .projects:hover .section-title {
+            padding-left: 10px;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.2em;
+            transition: var(--transition);
+        }
+        
+        .profile:hover .section-title i,
+        .awards:hover .section-title i,
+        .projects:hover .section-title i {
+            transform: rotate(10deg);
+        }
+        
+        .profile-info p {
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .profile-info p:hover {
+            padding-left: 10px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .profile-info p i {
+            margin-right: 10px;
+            color: var(--primary-blue);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .awards-list, .projects-list {
+            color: var(--text-dark);
+            list-style: none;
+        }
+        
+        .awards-list li, .projects-list li {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+            padding: 12px 0 12px 30px;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .awards-list li:hover, .projects-list li:hover {
+            padding-left: 35px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .awards-list li:before, .projects-list li:before {
+            content: '★';
+            color: var(--primary-blue);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            transition: var(--transition);
+        }
+        
+        .awards-list li:hover:before, .projects-list li:hover:before {
+            transform: scale(1.2) rotate(15deg);
+        }
+        
+        /* 社交链接区域 */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--primary-blue);
+            font-size: 1.2em;
+            box-shadow: 0 4px 10px var(--shadow);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--white);
+            background: var(--primary-blue);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .nav-item {
+                margin: 0 6px;
+            }
+            
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 15px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .profile, .awards, .projects {
+                width: 100%;
+            }
+            
+            .nav-menu:not(.mobile-nav) {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 15px;
+            }
+            
+            .logo {
+                font-size: 26px;
+            }
+            
+            .header h1 {
+                font-size: 3.5em;
+            }
+            
+            .header h2 {
+                font-size: 2em;
+            }
+            
+            .header p {
+                font-size: 1.1em;
+            }
+            
+            .content {
+                padding: 0 10px 30px;
+            }
+            
+            .profile img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 60px 20px 40px;
+                margin: 0 10px 30px;
+            }
+            
+            .header h1 {
+                font-size: 2.8em;
+            }
+            
+            .header h2 {
+                font-size: 1.6em;
+            }
+            
+            .profile, .awards, .projects {
+                padding: 25px;
+                min-width: auto;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile, .awards, .projects {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .profile {
+            animation-delay: 0.1s;
+        }
+        
+        .awards {
+            animation-delay: 0.3s;
+        }
+        
+        .projects {
+            animation-delay: 0.5s;
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--lavender);
+        }
+        
+        /* 底部装饰 */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-light);
+            font-size: 0.9em;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 15px 15px 0 0;
+            margin: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* 移动端菜单按钮 */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+        
+        /* 移动端导航菜单 */
+        .mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px var(--shadow);
+            z-index: 999;
+            transform: translateY(-100%);
+            transition: var(--transition);
+        }
+        
+        .mobile-nav.active {
+            transform: translateY(0);
+        }
+        
+        .mobile-nav .nav-item {
+            margin: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .mobile-nav .nav-link {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            border-radius: 0;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="back-btn">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="logo">Song</div>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#" class="nav-link active">个人首页</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">相册</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">自我介绍</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">荣誉</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">动态</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">留言板</a></li>
+        </ul>
+        
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+        
+        <div class="navbar-right">
+            <button class="menu-toggle" aria-label="菜单">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="submenu">
+                <a href="#" class="submenu-item">
+                    <i class="fas fa-cog"></i> 设置
+                </a>
+                <a href="#" class="submenu-item">
+                    <i class="fas fa-share-alt"></i> 分享
+                </a>
+                <a href="#" class="submenu-item">
+                    <i class="fas fa-thumbs-up"></i> 点赞
+                </a>
+                <a href="#" class="submenu-item">
+                    <i class="fas fa-star"></i> 收藏
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 移动端导航菜单 -->
+    <ul class="mobile-nav nav-menu">
+        <li class="nav-item"><a href="#" class="nav-link active">个人首页</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">相册</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">自我介绍</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">荣誉</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">动态</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">留言板</a></li>
+    </ul>
+    
+    <!-- 主要内容 -->
+    <div class="container">
+        <div class="header">
+            <h1 class="english-title">Hello,new friends</h1>
+            <h2 class="english-text">I'm Song XX</h2>
+            <div class="header-decoration">
+                <div class="line"></div>
+                <div class="icon"><i class="fas fa-leaf"></i></div>
+                <div class="line"></div>
+            </div>
+            <p class="english-text">A passionate learner and explorer, always seeking new challenges and opportunities.</p>
+        </div>
+        
+        <div class="content">
+            <div class="profile">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="">
+                <h3 class="section-title"><i class="fas fa-user"></i> 个人信息</h3>
+                <div class="profile-info">
+                    <p><i class="fas fa-signature"></i> 姓名: <span class="english-text">Song XX</span></p>
+                    <p><i class="fas fa-birthday-cake"></i> 年龄: <span class="english-text">19</span></p>
+                    <p><i class="fas fa-graduation-cap"></i> 毕业院校: <span class="english-text">XX 大学</span></p>
+                    <p><i class="fas fa-envelope"></i> 联系方式: <span class="english-text">example@example.com</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> 所在城市: <span class="english-text">济南</span></p>
+                    <p><i class="fas fa-code"></i> 专业技能: <span class="english-text">Python,C++</span></p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        
+            <div class="awards">
+                <h3 class="section-title"><i class="fas fa-trophy"></i> <span class="english-text">7+</span> 获奖情况</h3>
+                <ul class="awards-list">
+                    <li><span class="english-text">2025</span>年全国计算机系统能力大赛国二</li>
+                    <li><span class="english-text">2025</span>中国机器人及人工智能大赛省三</li>
+                    <li><span class="english-text">2025</span>年蓝桥杯省三</li>
+                    <li><span class="english-text">2025</span>年优秀团员</li>
+                    <li><span class="english-text">2025</span>年优秀团干部</li>
+		    <li><span class="english-text">2024</span>年军训旅嘉奖</li>
+                    <li><span class="english-text">2023</span>年市级三好学生</li>
+                </ul>
+            </div>
+        
+            <div class="projects">
+                <h3 class="section-title"><i class="fas fa-project-diagram"></i> <span class="english-text">3+</span> 参与项目</h3>
+                <ul class="projects-list">
+                    <li>大学生创新创业训练项目<span class="english-text">省级立项</span> - 负责论文撰写和PPT制作</li>
+                    <li>基于<span class="english-text">深度学习</span>的图像识别系统开发 - 参与模型训练与优化</li>
+                    <li>211机器人实验室<span class="english-text">网页</span>设计与实现 - 负责前端界面开发</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© <span class="english-text">2025</span> Song XX 的个人网页 | 绿色护眼界面</span></p>
+            <p style="margin-top: 10px;">Designed with <i class="fas fa-heart" style="color: var(--soft-pink);"></i> and passion</p>
+        </div>
+    </div>
+
+    <script>
+        // 导航菜单交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navbar = document.querySelector('.navbar');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const homeLink = document.querySelector('.nav-link.active'); // 获取首页链接
+            
+            // 显示功能完善提示
+            function showComingSoon() {
+                alert("该功能正在完善");
+            }
+            
+            // 导航链接激活状态
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有active类
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // 为当前点击的链接添加active类
+                    this.classList.add('active');
+                    
+                    // 关闭移动菜单（如果打开）
+                    if (mobileNav.classList.contains('active')) {
+                        mobileNav.classList.remove('active');
+                    }
+                    
+                    // 不是首页链接时才显示提示
+                    if (this !== homeLink) {
+                        showComingSoon();
+                    }
+                });
+            });
+            
+            // 返回按钮功能
+            const backBtn = document.querySelector('.back-btn');
+            backBtn.addEventListener('click', function() {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    alert('返回上一页');
+                }
+            });
+            
+            // 滚动时导航栏变化
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // 移动端菜单切换
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileNav.classList.toggle('active');
+            });
+            
+            // 菜单按钮点击处理
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const submenu = document.querySelector('.submenu');
+                submenu.style.opacity = submenu.style.opacity === '1' ? '0' : '1';
+                submenu.style.visibility = submenu.style.visibility === 'visible' ? 'hidden' : 'visible';
+                submenu.style.transform = submenu.style.transform === 'translateY(5px)' ? 'translateY(-10px)' : 'translateY(5px)';
+            });
+            
+            // 点击页面其他地方关闭子菜单
+            document.addEventListener('click', function() {
+                const submenu = document.querySelector('.submenu');
+                submenu.style.opacity = '0';
+                submenu.style.visibility = 'hidden';
+                submenu.style.transform = 'translateY(-10px)';
+            });
+            
+            // 平滑滚动到顶部
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 元素进入视口时的动画效果
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.profile, .awards, .projects');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // 初始加载和滚动时检查元素位置
+            window.addEventListener('load', animateOnScroll);
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // 银色星星跟随鼠标效果
+            function createSilverStar(x, y) {
+                // 创建星星元素
+                const star = document.createElement('div');
+                star.classList.add('silver-star');
+                
+                // 随机大小（2-6px）
+                const size = Math.random() * 4 + 2;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机位置（鼠标周围20px范围内）
+                const offsetX = (Math.random() - 0.5) * 40;
+                const offsetY = (Math.random() - 0.5) * 40;
+                star.style.left = `${x + offsetX}px`;
+                star.style.top = `${y + offsetY}px`;
+                
+                // 随机动画延迟，使星星闪烁更自然
+                const delay = Math.random() * 0.5;
+                star.style.animationDelay = `${delay}s`;
+                
+                // 添加到页面
+                document.body.appendChild(star);
+                
+                // 动画结束后移除元素（防止内存占用）
+                setTimeout(() => {
+                    star.remove();
+                }, 1200 + delay * 1000);
+            }
+            
+            // 鼠标移动时创建星星（控制频率避免性能问题）
+            document.addEventListener('mousemove', (function() {
+                const moveThreshold = 15; // 移动超过这个距离才创建新星星
+                let lastX = 0, lastY = 0;
+                
+                return function(e) {
+                    const dx = Math.abs(e.clientX - lastX);
+                    const dy = Math.abs(e.clientY - lastY);
+                    
+                    if (dx > moveThreshold || dy > moveThreshold) {
+                        // 每次移动创建1-2个星星
+                        const starCount = Math.floor(Math.random() * 2) + 1;
+                        for (let i = 0; i < starCount; i++) {
+                            createSilverStar(e.clientX, e.clientY);
+                        }
+                        
+                        lastX = e.clientX;
+                        lastY = e.clientY;
+                    }
+                };
+            })());
+        });
+    </script>
+</body>
+</html>
