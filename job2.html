@@ -2,77 +2,416 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="120; url=https://www.sdnu.edu.cn">
     <title>宋_0427_job2</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 题目容器样式 */
+        .question {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 5px solid #4a90e2;
+        }
+        
+        .question-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        /* 题目1样式 - 六级标题 */
+        .hierarchy-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .hierarchy-container h1, 
+        .hierarchy-container h2, 
+        .hierarchy-container h3, 
+        .hierarchy-container h4, 
+        .hierarchy-container h5, 
+        .hierarchy-container h6 {
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .hierarchy-container h1:hover, 
+        .hierarchy-container h2:hover, 
+        .hierarchy-container h3:hover, 
+        .hierarchy-container h4:hover, 
+        .hierarchy-container h5:hover, 
+        .hierarchy-container h6:hover {
+            transform: translateY(-3px);
+        }
+        
+        .hierarchy-container h1 {
+            background-color: #e8f4fd;
+            border-left: 6px solid #3498db;
+        }
+        
+        .hierarchy-container h2 {
+            background-color: #e8f8f5;
+            border-left: 6px solid #2ecc71;
+        }
+        
+        .hierarchy-container h3 {
+            background-color: #fef9e7;
+            border-left: 6px solid #f1c40f;
+        }
+        
+        .hierarchy-container h4 {
+            background-color: #fdedec;
+            border-left: 6px solid #e74c3c;
+        }
+        
+        .hierarchy-container h5 {
+            background-color: #f4ecf7;
+            border-left: 6px solid #9b59b6;
+        }
+        
+        .hierarchy-container h6 {
+            background-color: #eaf2f8;
+            border-left: 6px solid #5dade2;
+        }
+        
+        /* 题目2样式 - 诗词 */
+        .poems-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        
+        .poem-card {
+            flex: 1;
+            min-width: 300px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border: 1px solid #eaeaea;
+        }
+        
+        .poem-title {
+            font-family: "仿宋", serif;
+            font-size: 6px;
+            color: #81D8D0;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .poem-author {
+            font-family: "隶书", serif;
+            font-size: 5px;
+            color: #EC8136;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .poem-content {
+            font-family: "楷体", serif;
+            font-size: 5px;
+            color: #AE2423;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        /* 题目3样式 - 食物列表 */
+        .food-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: space-between;
+        }
+        
+        .food-category {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .food-category h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #2c3e50;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed #ddd;
+        }
+        
+        .food-list {
+            padding-left: 20px;
+        }
+        
+        .food-list li {
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .food-list li:hover {
+            background: #e9ecef;
+        }
+        
+        .fruit-list {
+            list-style-type: square;
+        }
+        
+        .vegetable-list {
+            list-style-type: disc;
+        }
+        
+        .meat-list {
+            list-style-type: circle;
+        }
+        
+        /* 题目4样式 - 汽车列表 */
+        .car-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: space-between;
+        }
+        
+        .car-category {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .car-category h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #2c3e50;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed #ddd;
+        }
+        
+        .car-list {
+            padding-left: 20px;
+        }
+        
+        .car-list li {
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .car-list li:hover {
+            background: #e9ecef;
+        }
+        
+        .european-list {
+            list-style-type: decimal;
+        }
+        
+        .asian-list {
+            list-style-type: upper-alpha;
+        }
+        
+        .domestic-list {
+            list-style-type: upper-roman;
+        }
+        
+        /* 分隔段落 */
+        .separator {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ccc, transparent);
+            margin: 30px 0;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .poems-container, .food-container, .car-container {
+                flex-direction: column;
+            }
+            
+            .poem-card, .food-category, .car-category {
+                min-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>沃尔玛 (Walmart) 美国6120亿美元行业零售</h1>
-    <h2>亚马逊 (Amazon) 美国5210亿美元行业电商与科技</h2>
-    <h3>国家电网 (State Grid)中国4870亿美元行业公用事业</h3>
-    <h4>沙特阿美 (Saudi Aramco)沙特阿拉伯4030亿美元行业石油能源</h4>
-    <h5>中国石化 (Sinopec)中国4010亿美元行业石化能源</h5>
-    <h6>中国石油 (CNPC) 中国3950亿美元行业石化能源</h6>
-
-    <p></p>
-
-    <div>
-        <h3 style="font-family: 仿宋; font-size: 6px; color: #81D8D0;">《破阵子·为陈同甫赋壮词以寄之》</h3>
-        <p style="font-family: 隶书; font-size: 5px; color: #EC8136;">辛弃疾</p>
-        <p style="font-family: 楷体; font-size: 5px; color: #AE2423;">
-            醉里挑灯看剑，梦回吹角连营。<br>
-            八百里分麾下炙，五十弦翻塞外声，沙场秋点兵。<br>
-            马作的卢飞快，弓如霹雳弦惊。<br>
-            了却君王天下事，赢得生前身后名。可怜白发生！
-        </p>
+    <!-- 题目1 -->
+    <div class="question">
+        <h2 class="question-title">题目1：</h2>
+        <div class="hierarchy-container">
+            <h1>沃尔玛 (Walmart) 美国6120亿美元行业零售</h1>
+            <h2>亚马逊 (Amazon) 美国5210亿美元行业电商与科技</h2>
+            <h3>国家电网 (State Grid)中国4870亿美元行业公用事业</h3>
+            <h4>沙特阿美 (Saudi Aramco)沙特阿拉伯4030亿美元行业石油能源</h4>
+            <h5>中国石化 (Sinopec)中国4010亿美元行业石化能源</h5>
+            <h6>中国石油 (CNPC) 中国3950亿美元行业石化能源</h6>
+        </div>
     </div>
 
-    <div>
-        <h3 style="font-family: 仿宋; font-size: 6px; color: #81D8D0;">《夏日绝句》</h3>
-        <p style="font-family: 隶书; font-size: 5px; color: #EC8136;">李清照</p>
-        <p style="font-family: 楷体; font-size: 5px; color: #AE2423;">
-            生当作人杰，死亦为鬼雄。<br>
-            至今思项羽，不肯过江东。
-        </p>
+    <p class="separator"></p>
+
+    <!-- 题目2 -->
+    <div class="question">
+        <h2 class="question-title">题目2：</h2>
+        <div class="poems-container">
+            <div class="poem-card">
+                <h3 class="poem-title">《破阵子·为陈同甫赋壮词以寄之》</h3>
+                <p class="poem-author">辛弃疾</p>
+                <p class="poem-content">
+                    醉里挑灯看剑，梦回吹角连营。<br>
+                    八百里分麾下炙，五十弦翻塞外声，沙场秋点兵。<br>
+                    马作的卢飞快，弓如霹雳弦惊。<br>
+                    了却君王天下事，赢得生前身后名。可怜白发生！
+                </p>
+            </div>
+            
+            <div class="poem-card">
+                <h3 class="poem-title">《夏日绝句》</h3>
+                <p class="poem-author">李清照</p>
+                <p class="poem-content">
+                    生当作人杰，死亦为鬼雄。<br>
+                    至今思项羽，不肯过江东。
+                </p>
+            </div>
+            
+            <div class="poem-card">
+                <h3 class="poem-title">《相思》</h3>
+                <p class="poem-author">王维</p>
+                <p class="poem-content">
+                    红豆生南国，春来发几枝。<br>
+                    愿君多采撷，此物最相思。
+                </p>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <h3 style="font-family: 仿宋; font-size: 6px; color: #81D8D0;">《相思》</h3>
-        <p style="font-family: 隶书; font-size: 5px; color: #EC8136;">王维</p>
-        <p style="font-family: 楷体; font-size: 5px; color: #AE2423;">
-            红豆生南国，春来发几枝。<br>
-            愿君多采撷，此物最相思。
-        </p>
+    <p class="separator"></p>
+
+    <!-- 题目3 -->
+    <div class="question">
+        <h2 class="question-title">题目3：</h2>
+        <div class="food-container">
+            <div class="food-category">
+                <h3>水果类 (square标记)</h3>
+                <ul class="food-list fruit-list">
+                    <li>冬枣</li>
+                    <li>橙子</li>
+                    <li>龙眼</li>
+                    <li>葡萄</li>
+                    <li>石榴</li>
+                    <li>柚子</li>
+                    <li>苹果</li>
+                    <li>山楂</li>
+                </ul>
+            </div>
+            
+            <div class="food-category">
+                <h3>蔬菜类 (disc标记)</h3>
+                <ul class="food-list vegetable-list">
+                    <li>萝卜</li>
+                    <li>菠菜</li>
+                    <li>红薯</li>
+                    <li>白菜</li>
+                    <li>南瓜</li>
+                    <li>土豆</li>
+                    <li>茄子</li>
+                    <li>西兰花</li>
+                </ul>
+            </div>
+            
+            <div class="food-category">
+                <h3>荤类食物 (circle标记)</h3>
+                <ul class="food-list meat-list">
+                    <li>秋刀鱼</li>
+                    <li>鲈鱼</li>
+                    <li>羊肉</li>
+                    <li>鸭肉</li>
+                    <li>鸡肉</li>
+                    <li>鲤鱼</li>
+                    <li>虾</li>
+                    <li>大闸蟹</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <p></p>
+    <p class="separator"></p>
 
-    <h3>秋天丰收的食物</h3>
-    <ul type="square">
-        <li>冬枣</li><li>橙子</li><li>龙眼</li><li>葡萄</li><li>石榴</li><li>柚子</li><li>苹果</li><li>山楂</li>
-    </ul>
-    <ul type="disc">
-        <li>萝卜</li><li>菠菜</li><li>红薯</li><li>白菜</li><li>南瓜</li><li>土豆</li><li>茄子</li><li>西兰花</li>
-    </ul>
-    <ul type="circle">
-        <li>秋刀鱼</li><li>鲈鱼</li><li>羊肉</li><li>鸭肉</li><li>鸡肉</li><li>鲤鱼</li><li>虾</li><li>大闸蟹</li>
-    </ul>
+    <!-- 题目4 -->
+    <div class="question">
+        <h2 class="question-title">题目4：</h2>
+        <div class="car-container">
+            <div class="car-category">
+                <h3>欧美系汽车 (数字标记)</h3>
+                <ol class="car-list european-list">
+                    <li>Valiant</li>
+                    <li>莲花Evija</li>
+                    <li>劳斯莱斯幻影</li>
+                    <li>兰博基尼Aventador</li>
+                    <li>保时捷911</li>
+                    <li>奔驰S级</li>
+                    <li>宝马7系</li>
+                    <li>奥迪A8</li>
+                </ol>
+            </div>
+            
+            <div class="car-category">
+                <h3>日韩系汽车 (大写字母标记)</h3>
+                <ol class="car-list asian-list">
+                    <li>雷克萨斯LS</li>
+                    <li>英菲尼迪Q80</li>
+                    <li>捷尼赛思GV80</li>
+                    <li>雷克萨斯RX</li>
+                    <li>丰田世纪</li>
+                    <li>马自达CX-9</li>
+                    <li>日产GT-R</li>
+                    <li>斯巴鲁WRX</li>
+                </ol>
+            </div>
+            
+            <div class="car-category">
+                <h3>国产汽车 (大写罗马字母标记)</h3>
+                <ol class="car-list domestic-list">
+                    <li>红旗国礼</li>
+                    <li>红旗L5</li>
+                    <li>比亚迪汉</li>
+                    <li>吉利博瑞</li>
+                    <li>长城哈弗H9</li>
+                    <li>奇瑞瑞虎8</li>
+                    <li>传祺GS8</li>
+                    <li>小鹏P7</li>
+                </ol>
+            </div>
+        </div>
+    </div>
 
-    <p></p>
-
-    <h3>汽车价格从高到低</h3>
-    <ol type="1">
-        <li>Valiant</li><li>莲花Evija</li><li>劳斯莱斯幻影</li><li>兰博基尼Aventador</li>
-        <li>保时捷911</li><li>奔驰S级</li><li>宝马7系</li><li>奥迪A8</li>
-    </ol>
-    <ol type="A">
-        <li>雷克萨斯LS</li><li>英菲尼迪Q80</li><li>捷尼赛思GV80</li><li>雷克萨斯RX</li>
-        <li>丰田世纪</li><li>马自达CX-9</li><li>日产GT-R</li><li>斯巴鲁WRX</li>
-    </ol>
-    <ol type="I">
-        <li>红旗国礼</li><li>红旗L5</li><li>比亚迪汉</li><li>吉利博瑞</li>
-        <li>长城哈弗H9</li><li>奇瑞瑞虎8</li><li>传祺GS8</li><li>小鹏P7</li>
-    </ol>
-
+    <!-- 题目5已在head中实现 -->
 </body>
-
 </html>
