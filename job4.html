@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>外语读本交流夜 · Foreign Book Meetup</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background: linear-gradient(135deg, #e6f8e0, #fdf7f1); /* 暖草绿渐变背景 */
+            color: #3b3025;
+            text-align: center;
+            line-height: 1.6; 
+        }
+
+        .page {
+            display: inline-block;
+            background-color: #e6f8e0; /* 暖草绿背景色 */
+            box-shadow: 0 0 30px rgba(80, 58, 35, 0.25);
+            text-align: left;
+            max-width: 720px;
+            padding: 20px; /* 增加内边距 */
+            border-radius: 10px; /* 圆角 */
+            margin-top: 20px; /* 页面间距 */
+        }
+
+        /* 群组选择器：统一标题的颜色与字间距 */
+        h1, h2, h3, h4, h5, h6 {
+            color: #5b4636;
+            letter-spacing: 1px;
+            margin-bottom: 15px; 
+        }
+
+        /* 类选择器：居中与右对齐 */
+        .center {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+            p#intro {
+            font-size: 140%;
+            font-weight: bold;
+            color: #c8493b;
+        }
+
+        .intro-text {
+            line-height: 1.8; 
+            letter-spacing: 0.5px;
+            font-size: 16px; 
+            margin-bottom: 20px; 
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px; 
+            font-weight: bold;
+            margin-bottom: 20px; 
+        }
+
+        table {
+            width: 100%;
+            background-color: #fdf4e5;
+            font-size: 14px; /* 调整字体大小 */
+            margin-bottom: 20px; 
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f2ddc2;
+            font-weight: bold;
+            text-align: left;
+            line-height: 2.2;
+            padding: 10px;
+        }
+
+        td {
+            line-height: 2.0;
+            padding: 8px;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #fbf0de;
+        }
+
+        table tr:hover {
+            background-color: #eed8be;
+        }
+
+        /* 后代选择器：div 里的 table 里的 a
+           只突出显示报名名单中的名字链接，不影响其他链接 */
+        div table a {
+            font-weight: bold;
+            font-size: 16px; /* 调整字体大小 */
+            color: #8b3b30;
+            text-decoration: none; /* 取消下划线 */
+        }
+
+        /* 全局链接伪类样式 */
+        a:link {
+            color: #b6553b;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #7a7b52;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #e36a4c;
+            text-decoration: underline;
+        }
+
+        a:active {
+            color: #3c4f9f;
+            text-decoration: underline;
+        }
+
+        /* 带类名的链接：重点与次要链接 */
+        a.red:link {
+            color: #e25b3d;
+        }
+
+        a.red:active {
+            color: #3046a1;
+        }
+
+        a.blue:link {
+            color: #4b7f60;
+        }
+
+        a.blue:active {
+            color: #a53aa4;
+        }
+
+        p::first-letter {
+            font-size: 180%;
+            color: #c45b3f;
+        }
+
+        /* div 的第一行高亮
+           底部公告区的第一行会格外醒目，其他 div 第一行也会略微强调 */
+        div::first-line {
+            color: #b04832;
+            font-weight: bold;
+        }
+
+        .notice {
+            font-size: 90%;
+            line-height: 1.6;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, rgba(91,70,54,0), rgba(91,70,54,0.6), rgba(91,70,54,0));
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- 顶部标题区 -->
+    <h1 class="center">外语读本交流夜 · Foreign Book Meetup</h1>
+
+    <div class="divider"></div><br>
+
+    <!-- 活动介绍区 -->
+    <div>
+        <h2 id="intro" class="center">本周主题：书籍之旅——探索世界文学的精彩</h2>
+
+        <p class="intro-text center">
+            本周六晚上，我们将举办一次外语书籍的分享与阅读交流活动。欢迎每一位同学分享！
+        </p>
+
+	<p class="intro-text center">
+            现场准备了茶点，让每一位同学在轻松愉悦中享受阅读与对话的乐趣！同时，我们还将为每位参与者赠送一份精选的外语书单，助您开启一段跨越语言与文化的探索之旅。让我们通过阅读书籍，走进不同的思想世界，拓宽国际视野，感受多元文化的魅力吧！
+        </p>
+
+        <p class="intro-text center">
+            Come connect with fellow book lovers as we explore and chat about great reads from around the world!
+        </p>
+
+        <p id="intro">
+            活动座位有限，请务必提前报名确认您的席位，报名确认后我们将通过邮件通知。
+        </p>
+    </div>
+
+    <br><div class="divider"></div><br>
+
+    <!-- 活动报名情况表格区 -->
+    <div>
+        <h3 class="section-title">活动报名名单</h3>
+
+        <table>
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>联系方式</th>
+		<th>报名状态</th>
+                <th>语言等级</th>
+            </tr>
+            <tr>
+                <td>01</td>
+                <td><a href="https://example.com/person1">Carey</a></td>
+                <td>137****6973</td>
+		<td>已确认席位</td>
+                <td>托福必读</td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td><a href="https://example.com/person2">Bob</a></td>
+                <td>179****6552</td>
+		<td>待确认</td>
+                <td>GMT必读</td>
+            </tr>
+            <tr>
+                <td>03</td>
+                <td>Alin</td>
+                <td>130****0236</td>
+		<td>候补</td>
+                <td>托福必读</td>
+            </tr>
+        </table>
+    </div>
+
+    <br><div class="divider"></div><br>
+
+    <!-- 页面链接区：这里的链接样式不会被 div table a 放大字号，因为不在 table 里 -->
+    <div class="center">
+        <p>
+            <a class="red" href="https://hongchenwusdnu.github.io/bookstore/job4.html">查看往期活动照片</a><br>
+            <a class="blue" href="https://syh887.github.io/Song/job3/job3.html">在线咨询活动详情</a>
+        </p>
+    </div>
+
+    <br><div class="divider"></div><br>
+
+    <!-- 底部公告区：第一行被 div::first-line 强调 -->
+    <div class="notice">
+        活动地点：新华书店，桂花路 67 号，地铁八号线“桂花站”出站步行三分钟。<br>
+        活动时间：周六晚上 19:00 - 22:00<br>
+        温馨提示：活动结束后可领取一份精选书单，涵盖文学、历史、哲学等多个领域。
+    </div>
+
+    <br>
+
+</div>
+
+</body>
+</html>
